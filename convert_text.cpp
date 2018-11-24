@@ -16,13 +16,14 @@ int main() {
     int col_no;
     cin >> col_no;
 
-    freopen("material.in", "r", stdin);
-    freopen("material.tex", "w", stdout);
+    freopen("input.txt", "r", stdin);
+    freopen("converted.tex", "w", stdout);
 
     vector<string> all;
     string current;
     while(getline(cin, current))
         all.emplace_back(current);
+	all.emplace_back("\n");
  
     for(string &s : all)
         while(!s.empty() && (isspace(s.back()) || s.back() == '.' || s.back() == ':' || s.back() == ';' || s.back() == ','))
