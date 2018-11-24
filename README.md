@@ -2,4 +2,4 @@
 Automatycznie tworzenie ściąg
 
 Jednolinijkowiec na ubuntu:
-wget -O - https://github.com/tonowak/auto-cheatsheet/blob/master/install.sh | bash
+wget -O - https://raw.githubusercontent.com/tonowak/auto-cheatsheet/master/install.sh | bash
