@@ -19,7 +19,7 @@ clean:
 	@$(RM) converted* log convert_text
 
 install:
-	sudo apt-get install -y texlive-xetex
+	sudo apt-get install -y texlive-xetex texlive-lang-polish
 
 update: clean
 	rm output.pdf
