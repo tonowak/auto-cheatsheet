@@ -2,3 +2,21 @@ YOUR TEXT
 
 GOES
 HERE
+
+A VERY LONG LINE
+A VERY LONG LINE
+A VERY LONG LINE
+A VERY LONG LINE
+A VERY LONG LINE
+
+Some latex math:
+$\sum_{i=1}^\infty \frac{1}{i^2} = \frac{\pi^2}{6}$
+Note that the lines got resized to properly fit math stuff
+
+Program automatically removes uneccesary characters at the end of line : . , ;
+here also;
+
+
+
+Color is changed after at least one newline
+Some polish characters: ąęóżźńłĄĘÓŻŹŃŁ

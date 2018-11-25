@@ -12,7 +12,7 @@ void replace_with(string &subject, const string search, const string replace) {
 }
  
 int main() {
-    cout << "input number of columns" << endl;
+    cout << "input number of columns:" << endl;
     int col_no;
     cin >> col_no;
 
@@ -50,6 +50,19 @@ int main() {
         replace_with(s, "„", "``");
         replace_with(s, "“", "''");
         replace_with(s, "\"", "''");
+
+		replace_with(s, "$", "$$");
+		bool closing = false;
+		for(int i = 0; i < int(s.size()) - 1; ++i)
+			if(s[i] == '$' && s[i + 1] == '$') {
+				if(closing) {
+					s[i + 1] = '|';
+					replace_with(s, "|", "\\seqsplit{");
+				} else
+					s[i] = '}';
+				closing = !closing;
+				++i;
+			}
     }
  
  
@@ -66,13 +79,13 @@ int main() {
             if(last_negated)
                 fragment += "\\seqsplit{";
             last_negated = false;
-            fragment += s + '|';
+            fragment += s + "$\\|$";
         }
 
     cout << "\\documentclass{article}\n"
             "\n"
             "% small margin\n"
-            "\\usepackage[a4paper, margin=1cm, top=0.1cm, bottom=0.01cm]{geometry}\n"
+            "\\usepackage[a4paper, margin=0.7cm, top=0cm, bottom=0cm]{geometry}\n"
             "\n"
             "% fixing polish symbols\n"
             "\\usepackage[polish]{babel}\n"
@@ -93,29 +106,43 @@ int main() {
             "% big tables\n"
             "\\usepackage{tabu}\n"
             "\\usepackage{longtable}\n"
+			"\\usepackage{wrapfig}\n"
             "\n"
             "\\begin{document}\n"
             "\n"
             "\\setlength{\\tabcolsep}{1pt} % tiny table margins\n"
             "{\\fontsize{4}{5}\\selectfont % tiny font\n"
-            "    \\begin{longtabu}{|";
+			"    \\begin{wraptable}{r}{19.5cm}\n"
+            "        \\begin{longtabu}{|";
 
     for(int i = 0; i < col_no; ++i)
         cout << "X[l]|";
 
     cout << "} % equal-sized columns\n"
-            "        \\hline\n"
-            "        ";
+            "            \\hline\n"
+            "            ";
 
     for(int i = 0; i < col_no; ++i) {
         cout << fragment;
         if(i != col_no - 1)
             cout << " & ";
+		else
+			cout << "\n";
     }
 
-    cout << "\\\\ \\hline\n"
-            "    \\end{longtabu}\n"
-            "    }\n"
+    cout << "            \\\\ \\hline\n"
+            "        \\end{longtabu}\n"
+			"    \\end{wraptable}\n"
+			"    \n"
+			"    \\hfill \\newline\n"
+			"    \\begin{tabular}{c}\n"
+			"        \\\\ \\\\ \\\\ \\\\ \\\\ \\\\ \\\\ \\\\ \\\\ \\\\\n";
+	for(int i = 0; i < 16; ++i)
+		cout << "        \\\\ \\_ \\\\ \\\\ \\\\ \\\\ \\\\ \\\\ \\\\ \\\\ \\\\\n";
+	cout << "        \\\\ \\_\n"
+		    "    \\end{tabular}\n"
+			"    \\hfill\\\\\n"
+            "}\n"
             "\n"
             "\\end{document}\n";
 }
