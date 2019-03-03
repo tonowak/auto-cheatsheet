@@ -51,7 +51,7 @@ int main() {
         replace_with(s, "“", "''");
         replace_with(s, "\"", "''");
 
-		replace_with(s, "%", "\%");
+		replace_with(s, "%", "\\%");
 		replace_with(s, "$", "$$");
 		bool closing = false;
 		for(int i = 0; i < int(s.size()) - 1; ++i)
